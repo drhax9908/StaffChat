@@ -20,8 +20,6 @@ import java.util.List;
 
 public class Spigot extends JavaPlugin {
 
-    //public static Spigot plugin;
-
     public List<Player> toggledPlayers;
 
     public void onEnable() {
@@ -30,7 +28,6 @@ public class Spigot extends JavaPlugin {
         registerCommands();
         getServer().getPluginManager().registerEvents(new SpigotMessageEvent(this), this);
         Spicord.getInstance().getAddonManager().registerAddon(new SpigotAddon(this));
-        //plugin = this;
     }
 
     private void registerCommands() {

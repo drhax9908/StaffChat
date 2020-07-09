@@ -11,26 +11,28 @@ import net.dv8tion.jda.core.entities.User;
 
 public class BungeeAddon extends SimpleAddon {
 
+    private Bungee plugin;
     private static BungeeAddon instance;
     private DiscordBot bot;
     public static BungeeAddon getInstance() {
         return instance;
     }
 
-    public BungeeAddon() {
+    public BungeeAddon(Bungee pl) {
         super("StaffChat","staffchat","Siebrenvde");
         instance = this;
+        plugin = pl;
     }
 
     @Override
     public void onLoad(DiscordBot bot) {
         this.bot = bot;
         enableCommands();
-        bot.getJda().addEventListener(new MessageListenerBungee());
+        bot.getJda().addEventListener(new MessageListenerBungee(plugin));
     }
 
     private void enableCommands() {
-        if(Bungee.plugin.config.getBoolean("enable-discord-commands")) {
+        if(plugin.config.getBoolean("enable-discord-commands")) {
             bot.onCommand("sc", this::staffChat);
             bot.onCommand("staffchat", this::staffChat);
             bot.onCommand("schat", this::staffChat);
@@ -41,12 +43,12 @@ public class BungeeAddon extends SimpleAddon {
     private String prefix = BungeeUtils.spicordPrefix();
 
     public void sendMessage(String message) {
-        TextChannel tc = bot.getJda().getTextChannelById(Bungee.plugin.config.getString("staff-channel"));
+        TextChannel tc = bot.getJda().getTextChannelById(plugin.config.getString("staff-channel"));
         tc.sendMessage(message).queue();
     }
 
     public void sendEmbed(String title, String description) {
-        TextChannel tc = bot.getJda().getTextChannelById(Bungee.plugin.config.getString("staff-channel"));
+        TextChannel tc = bot.getJda().getTextChannelById(plugin.config.getString("staff-channel"));
         tc.sendMessage(new EmbedBuilder().setTitle(title).setDescription(description).build()).queue();
     }
 
@@ -56,7 +58,7 @@ public class BungeeAddon extends SimpleAddon {
         if(msg.length() < 2) {
             command.getMessage().getChannel().sendMessage("**Usage**: ***" + prefix + " <message>***").queue();
         } else {
-            BungeeUtils.sendPermissionMessage(Bungee.plugin.minecraftLayout(msg, user), "staffchat.see");
+            BungeeUtils.sendPermissionMessage(plugin.minecraftLayout(msg, user), "staffchat.see");
         }
     }
 

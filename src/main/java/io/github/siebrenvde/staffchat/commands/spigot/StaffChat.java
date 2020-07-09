@@ -32,10 +32,10 @@ public class StaffChat implements CommandExecutor {
                 else if(strings.length == 1 && strings[0].equalsIgnoreCase("toggle")) {
                     if(plugin.toggledPlayers.contains(player)) {
                         plugin.toggledPlayers.remove(player);
-                        player.sendMessage(ChatColor.GREEN + "StaffChat toggled on");
+                        player.sendMessage(ChatColor.RED + "StaffChat toggled off");
                     } else {
                         plugin.toggledPlayers.add(player);
-                        player.sendMessage(ChatColor.RED + "StaffChat toggled off");
+                        player.sendMessage(ChatColor.GREEN + "StaffChat toggled on");
                     }
                 }
 

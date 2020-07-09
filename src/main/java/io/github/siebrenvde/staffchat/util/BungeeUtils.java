@@ -55,7 +55,7 @@ public class BungeeUtils {
         File file;
         file = new File(ProxyServer.getInstance().getPluginsFolder() + "/Spicord/config.toml");
         Toml config = new Toml().read(file);
-        return config.getString("bots[" + Bungee.plugin.configNum() + "].command_prefix");
+        return config.getString("bots[" + Bungee.configNum() + "].command_prefix");
     }
 
 }

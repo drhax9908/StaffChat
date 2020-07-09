@@ -1,7 +1,5 @@
 package io.github.siebrenvde.staffchat.commands.spigot;
 
-import com.bgsoftware.superiorskyblock.api.island.Island;
-import com.bgsoftware.superiorskyblock.api.wrappers.SuperiorPlayer;
 import io.github.siebrenvde.staffchat.Spigot;
 import io.github.siebrenvde.staffchat.discord.SpigotAddon;
 import io.github.siebrenvde.staffchat.util.SpigotUtils;

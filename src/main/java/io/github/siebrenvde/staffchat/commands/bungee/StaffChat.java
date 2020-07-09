@@ -29,9 +29,21 @@ public class StaffChat extends Command {
 
             if(player.hasPermission("staffchat.use")) {
 
-                if(strings.length < 1) {
+                if(strings.length == 0) {
                     player.sendMessage(new TextComponent(ChatColor.RED + "Please enter a message!"));
-                } else {
+                }
+
+                else if(strings.length == 1 && strings[0].equalsIgnoreCase("toggle")) {
+                    if(plugin.toggledPlayers.contains(player)) {
+                        plugin.toggledPlayers.remove(player);
+                        player.sendMessage(new TextComponent(ChatColor.RED + "StaffChat toggled off"));
+                    } else {
+                        plugin.toggledPlayers.add(player);
+                        player.sendMessage(new TextComponent(ChatColor.GREEN + "StaffChat toggled on"));
+                    }
+                }
+
+                else {
                     String server = player.getServer().getInfo().getName();
                     BungeeUtils.sendPermissionMessage(plugin.generalLayout(msg, player.getName(), player.getDisplayName(), server),"staffchat.see");
                     addon.sendMessage(plugin.discordLayout(msg, player.getName(), player.getDisplayName(), server));

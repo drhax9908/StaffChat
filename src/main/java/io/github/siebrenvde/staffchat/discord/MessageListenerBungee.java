@@ -11,6 +11,12 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 public class MessageListenerBungee extends ListenerAdapter {
 
+    private Bungee plugin;
+
+    public MessageListenerBungee(Bungee pl) {
+        plugin = pl;
+    }
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
 
@@ -22,13 +28,13 @@ public class MessageListenerBungee extends ListenerAdapter {
 
             TextChannel channel = event.getTextChannel();
 
-            if(channel.getId().equals(Bungee.plugin.config.getString("staff-channel"))) {
+            if(channel.getId().equals(plugin.config.getString("staff-channel"))) {
 
-                if(!Bungee.plugin.config.getBoolean("enable-discord-commands")) {
+                if(!plugin.config.getBoolean("enable-discord-commands")) {
 
                     if (!author.isBot()) {
 
-                        BungeeUtils.sendPermissionMessage(Bungee.plugin.minecraftLayout(msg, author), "staffchat.see");
+                        BungeeUtils.sendPermissionMessage(plugin.minecraftLayout(msg, author), "staffchat.see");
 
                     }
 

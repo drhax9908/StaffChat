@@ -6,9 +6,11 @@ import io.github.siebrenvde.staffchat.commands.bungee.HelpOp;
 import io.github.siebrenvde.staffchat.commands.bungee.Report;
 import io.github.siebrenvde.staffchat.commands.bungee.StaffChat;
 import io.github.siebrenvde.staffchat.discord.BungeeAddon;
+import io.github.siebrenvde.staffchat.events.BungeeMessageEvent;
 import io.github.siebrenvde.staffchat.util.BungeeUtils;
 import net.dv8tion.jda.core.entities.User;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -18,16 +20,20 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bungee extends Plugin {
 
-    public static Bungee plugin;
+
+    public List<ProxiedPlayer> toggledPlayers;
 
     public void onEnable() {
+        toggledPlayers = new ArrayList<>();
         registerCommands();
         registerConfig();
-        Spicord.getInstance().getAddonManager().registerAddon(new BungeeAddon());
-        plugin = this;
+        getProxy().getPluginManager().registerListener(this, new BungeeMessageEvent(this));
+        Spicord.getInstance().getAddonManager().registerAddon(new BungeeAddon(this));
     }
 
     private void registerCommands(){
