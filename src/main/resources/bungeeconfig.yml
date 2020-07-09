@@ -1,0 +1,49 @@
+# Spicord StaffChat by Siebrenvde
+# Version 1.5.0
+
+staff-channel: "123456789012345678"
+
+# Enabling this forces you to use -sc to send messages to the server
+enable-discord-commands: false
+
+# ----------------------
+# StaffChat
+# ----------------------
+
+# The message shown to in-game staff when using /sc in-game
+# Placeholders:
+# %displayname% - Displays the player's displayname
+# %username% - Displays the player's username
+# %server% - Displays the server the player is in
+# %message% - Displays the sent message
+general-layout: "&4StaffChat &c%username% (%server%)&4: &a%message%"
+
+# The message shown to in-game staff when using -sc on Discord
+# Placeholders:
+# %usertag% - Displays the user's username + tag (Ex. Siebrenvde#0863)
+# %username% - Displays the user's username (Ex. Siebrenvde)
+# %message% - Displays the sent message
+minecraft-layout: "&9Discord &4StaffChat &c%usertag%&4: &a%message%"
+
+# The message shown in the Discord when using /sc in-game
+# Placeholders:
+# %displayname% - Displays the player's displayname
+# %username% - Displays the player's username
+# %server% - Displays the server the player is in
+# %message% - Displays the sent message
+discord-layout: "**[StaffChat] %username% (%server%)**: %message%"
+
+# ----------------------
+# Reports & Helpop
+# ----------------------
+
+# Whether to use embed in reports (RECOMMENDED)
+use-embed: true
+
+report-message-discord: "**[Report] %reporter%** reported **%reported%** on **%server%** for *%reason%*"
+
+report-message: "&c%reporter% &7reported &c%reported% &7on &c%server% &7for &c%reason%"
+
+helpop-message-discord: "**[HelpOp] %player% (%server%)**: %message%"
+
+helpop-message: "&cHelpOp %player% (%server%): &e%message%"
