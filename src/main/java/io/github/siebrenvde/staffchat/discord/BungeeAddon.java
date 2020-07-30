@@ -14,9 +14,7 @@ public class BungeeAddon extends SimpleAddon {
     private Bungee plugin;
     private static BungeeAddon instance;
     private DiscordBot bot;
-    public static BungeeAddon getInstance() {
-        return instance;
-    }
+    public String prefix;
 
     public BungeeAddon(Bungee pl) {
         super("StaffChat","staffchat","Siebrenvde");
@@ -27,6 +25,7 @@ public class BungeeAddon extends SimpleAddon {
     @Override
     public void onLoad(DiscordBot bot) {
         this.bot = bot;
+        prefix = bot.getCommandPrefix();
         enableCommands();
         bot.getJda().addEventListener(new MessageListenerBungee(plugin));
     }
@@ -39,8 +38,6 @@ public class BungeeAddon extends SimpleAddon {
             bot.onCommand("staffc", this::staffChat);
         }
     }
-
-    private String prefix = BungeeUtils.spicordPrefix();
 
     public void sendMessage(String message) {
         TextChannel tc = bot.getJda().getTextChannelById(plugin.config.getString("staff-channel"));
@@ -55,8 +52,8 @@ public class BungeeAddon extends SimpleAddon {
     private void staffChat(DiscordBotCommand command) {
         User user = command.getMessage().getAuthor();
         String msg = command.getMessage().getContentRaw();
-        if(msg.length() < 2) {
-            command.getMessage().getChannel().sendMessage("**Usage**: ***" + prefix + " <message>***").queue();
+        if(msg.split(" ").length == 1) {
+            command.reply("**Usage**: ***" + prefix + command.getName() + " <message>***");
         } else {
             BungeeUtils.sendPermissionMessage(plugin.minecraftLayout(msg, user), "staffchat.see");
         }

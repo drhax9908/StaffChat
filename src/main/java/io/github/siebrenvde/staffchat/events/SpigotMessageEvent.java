@@ -12,15 +12,16 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class SpigotMessageEvent implements Listener {
 
     private Spigot plugin;
+    private SpigotAddon addon;
 
     public SpigotMessageEvent(Spigot pl) {
         plugin = pl;
+        addon = pl.addon;
     }
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
 
-        SpigotAddon addon = SpigotAddon.getInstance();
         Player player = event.getPlayer();
 
         if(plugin.toggledPlayers.contains(player)) {

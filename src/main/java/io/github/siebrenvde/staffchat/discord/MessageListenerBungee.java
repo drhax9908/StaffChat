@@ -13,7 +13,7 @@ public class MessageListenerBungee extends ListenerAdapter {
 
     private Bungee plugin;
 
-    public MessageListenerBungee(Bungee pl) {
+    MessageListenerBungee(Bungee pl) {
         plugin = pl;
     }
 

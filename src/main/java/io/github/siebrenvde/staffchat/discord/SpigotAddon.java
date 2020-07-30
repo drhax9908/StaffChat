@@ -14,9 +14,7 @@ public class SpigotAddon extends SimpleAddon {
     private Spigot plugin;
     private static SpigotAddon instance;
     private DiscordBot bot;
-    public static SpigotAddon getInstance() {
-        return instance;
-    }
+    public String prefix;
 
     public SpigotAddon(Spigot pl) {
         super("StaffChat","staffchat","Siebrenvde");
@@ -27,6 +25,7 @@ public class SpigotAddon extends SimpleAddon {
     @Override
     public void onLoad(DiscordBot bot) {
         this.bot = bot;
+        prefix = bot.getCommandPrefix();
         enableCommands();
         bot.getJda().addEventListener(new MessageListenerSpigot(plugin));
     }
@@ -39,8 +38,6 @@ public class SpigotAddon extends SimpleAddon {
             bot.onCommand("staffc", this::staffChat);
         }
     }
-
-    private String prefix = SpigotUtils.spicordPrefix();
 
     public void sendMessage(String message) {
         TextChannel tc = bot.getJda().getTextChannelById(plugin.getConfig().getString("staff-channel"));
@@ -55,10 +52,11 @@ public class SpigotAddon extends SimpleAddon {
     private void staffChat(DiscordBotCommand command) {
         User user = command.getMessage().getAuthor();
         String msg = command.getMessage().getContentRaw();
-        if(msg.length() < 2) {
-            command.getMessage().getChannel().sendMessage("**Usage**: ***" + prefix + " <message>***").queue();
+        if(msg.split(" ").length == 1) {
+            command.reply("**Usage**: ***" + prefix + command.getName() + " <message>***");
         } else {
             SpigotUtils.sendPermissionMessage(plugin.minecraftLayout(msg, user), "staffchat.see");
         }
     }
+
 }

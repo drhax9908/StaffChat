@@ -12,11 +12,15 @@ import org.bukkit.entity.Player;
 public class StaffChat implements CommandExecutor {
 
     private Spigot plugin;
-    public StaffChat(Spigot pl) { plugin = pl; }
+    private SpigotAddon addon;
+
+    public StaffChat(Spigot pl) {
+        plugin = pl;
+        addon = pl.addon;
+    }
 
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
-        SpigotAddon addon = SpigotAddon.getInstance();
         String msg = String.join(" ", strings);
 
         if(sender instanceof Player) {
@@ -26,7 +30,7 @@ public class StaffChat implements CommandExecutor {
             if(player.hasPermission("staffchat.use")) {
 
                 if(strings.length == 0) {
-                    player.sendMessage(ChatColor.RED + "Please enter a message!");
+                    player.sendMessage(ChatColor.RED + "Usage: /staffchat <message>");
                 }
 
                 else if(strings.length == 1 && strings[0].equalsIgnoreCase("toggle")) {

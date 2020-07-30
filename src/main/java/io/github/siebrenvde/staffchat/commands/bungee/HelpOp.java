@@ -12,21 +12,22 @@ import net.md_5.bungee.api.ChatColor;
 public class HelpOp extends Command {
 
     private Bungee plugin;
+    private BungeeAddon addon;
 
     public HelpOp(Bungee pl) {
         super("helpop");
         plugin = pl;
+        addon = pl.addon;
     }
 
     public void execute(CommandSender sender, String[] strings) {
 
         if(sender instanceof ProxiedPlayer) {
 
-            BungeeAddon addon = BungeeAddon.getInstance();
             ProxiedPlayer player = (ProxiedPlayer) sender;
 
             if(strings.length < 1) {
-                player.sendMessage(new TextComponent(ChatColor.GRAY + "Usage: " + ChatColor.RED + "/helpop <message>"));
+                player.sendMessage(new TextComponent(ChatColor.RED + "Usage: /helpop <message>"));
             }
 
             else {

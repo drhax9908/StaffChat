@@ -12,17 +12,21 @@ import org.bukkit.entity.Player;
 public class Report implements CommandExecutor {
 
     private Spigot plugin;
-    public Report(Spigot pl) { plugin = pl; }
+    private SpigotAddon addon;
+
+    public Report(Spigot pl) {
+        plugin = pl;
+        addon = pl.addon;
+    }
 
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
         if(sender instanceof Player) {
 
-            SpigotAddon addon = SpigotAddon.getInstance();
             Player player = (Player) sender;
 
             if(strings.length < 2) {
-                player.sendMessage(ChatColor.GRAY + "Usage: " + ChatColor.RED + "/report <player> <reason>");
+                player.sendMessage(ChatColor.RED + "Usage: /report <player> <reason>");
             }
 
             else {

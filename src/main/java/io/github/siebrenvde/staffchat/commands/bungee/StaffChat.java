@@ -12,15 +12,16 @@ import net.md_5.bungee.api.ChatColor;
 public class StaffChat extends Command {
 
     private Bungee plugin;
+    private BungeeAddon addon;
 
     public StaffChat(Bungee pl) {
         super("staffchat", "", "sc", "staffc", "schat");
         plugin = pl;
+        addon = pl.addon;
     }
 
     public void execute(CommandSender sender, String[] strings) {
 
-        BungeeAddon addon = BungeeAddon.getInstance();
         String msg = String.join(" ", strings);
 
         if(sender instanceof ProxiedPlayer) {
@@ -30,7 +31,7 @@ public class StaffChat extends Command {
             if(player.hasPermission("staffchat.use")) {
 
                 if(strings.length == 0) {
-                    player.sendMessage(new TextComponent(ChatColor.RED + "Please enter a message!"));
+                    player.sendMessage(new TextComponent(ChatColor.RED + "Usage: /staffchat <message>"));
                 }
 
                 else if(strings.length == 1 && strings[0].equalsIgnoreCase("toggle")) {
@@ -57,8 +58,12 @@ public class StaffChat extends Command {
 
         else {
 
-            BungeeUtils.sendPermissionMessage(plugin.generalLayout(msg, "CONSOLE", "CONSOLE", "CONSOLE"), "staffchat.see");
-            addon.sendMessage(plugin.discordLayout(msg, "CONSOLE", "CONSOLE", "CONSOLE"));
+            if(strings.length == 0) {
+                plugin.getLogger().info(ChatColor.RED + "Usage: /staffchat <message>");
+            } else {
+                BungeeUtils.sendPermissionMessage(plugin.generalLayout(msg, "CONSOLE", "CONSOLE", "CONSOLE"), "staffchat.see");
+                addon.sendMessage(plugin.discordLayout(msg, "CONSOLE", "CONSOLE", "CONSOLE"));
+            }
 
         }
 

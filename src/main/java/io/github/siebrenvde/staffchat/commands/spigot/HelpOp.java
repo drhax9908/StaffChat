@@ -12,17 +12,21 @@ import org.bukkit.entity.Player;
 public class HelpOp implements CommandExecutor {
 
     private Spigot plugin;
-    public HelpOp(Spigot pl) { plugin = pl; }
+    private SpigotAddon addon;
+
+    public HelpOp(Spigot pl) {
+        plugin = pl;
+        addon = pl.addon;
+    }
 
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
         if(sender instanceof Player) {
 
-            SpigotAddon addon = SpigotAddon.getInstance();
             Player player = (Player) sender;
 
             if(strings.length < 1) {
-                player.sendMessage(ChatColor.GRAY + "Usage: " + ChatColor.RED + "/helpop <message>");
+                player.sendMessage(ChatColor.RED + "Usage: /helpop <message>");
             }
 
             else {

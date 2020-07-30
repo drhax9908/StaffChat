@@ -12,9 +12,11 @@ import net.md_5.bungee.event.EventHandler;
 public class BungeeMessageEvent implements Listener {
 
     private Bungee plugin;
+    private BungeeAddon addon;
 
     public BungeeMessageEvent(Bungee pl) {
         plugin = pl;
+        addon = pl.addon;
     }
 
     @EventHandler
@@ -22,7 +24,6 @@ public class BungeeMessageEvent implements Listener {
 
         if(event.getSender() instanceof ProxiedPlayer) {
 
-            BungeeAddon addon = BungeeAddon.getInstance();
             ProxiedPlayer player = (ProxiedPlayer) event.getSender();
 
             if(plugin.toggledPlayers.contains(player)) {

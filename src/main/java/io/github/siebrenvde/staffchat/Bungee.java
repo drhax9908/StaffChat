@@ -1,6 +1,5 @@
 package io.github.siebrenvde.staffchat;
 
-import com.moandjiezana.toml.Toml;
 import eu.mcdb.spicord.Spicord;
 import io.github.siebrenvde.staffchat.commands.bungee.HelpOp;
 import io.github.siebrenvde.staffchat.commands.bungee.Report;
@@ -25,15 +24,17 @@ import java.util.List;
 
 public class Bungee extends Plugin {
 
+    public BungeeAddon addon;
 
     public List<ProxiedPlayer> toggledPlayers;
 
     public void onEnable() {
+        addon = new BungeeAddon(this);
         toggledPlayers = new ArrayList<>();
         registerCommands();
         registerConfig();
         getProxy().getPluginManager().registerListener(this, new BungeeMessageEvent(this));
-        Spicord.getInstance().getAddonManager().registerAddon(new BungeeAddon(this));
+        Spicord.getInstance().getAddonManager().registerAddon(addon);
     }
 
     private void registerCommands(){
@@ -67,120 +68,60 @@ public class Bungee extends Plugin {
     }
 
     public String generalLayout(String msg, String player, String playerDN, String server) {
-
-        String ccMsg = BungeeUtils.translateCC(msg);
-
-        String rawMsg = config.getString("general-layout")
+        return BungeeUtils.translateCC(config.getString("general-layout")
                 .replace("%displayname%", playerDN)
                 .replace("%username%", player)
                 .replace("%server%", server)
-                .replace("%message%", ccMsg);
-
-        String message = BungeeUtils.translateCC(rawMsg);
-
-        return message;
+                .replace("%message%", msg));
     }
 
     public String minecraftLayout(String msg, User user) {
 
-        String p = BungeeUtils.spicordPrefix();
+        String p = addon.prefix;
         String dscMsg = msg.replaceFirst(p + "sc ", "").replaceFirst(p + "staffchat ", "").replaceFirst(p + "schat ", "").replaceFirst(p + "staffc ", "");
 
-        String rawMsg = config.getString("minecraft-layout")
+        return BungeeUtils.translateCC(config.getString("minecraft-layout")
                 .replace("%username%", user.getName())
                 .replace("%usertag%", user.getAsTag())
-                .replace("%message%", dscMsg);
-
-        String message = BungeeUtils.translateCC(rawMsg);
-
-        return message;
+                .replace("%message%", dscMsg));
     }
 
     public String discordLayout(String msg, String player, String playerDN, String server) {
-
-        String dscMsg = BungeeUtils.removeCC(msg);
-
-        String message = config.getString("discord-layout")
+        return config.getString("discord-layout")
                 .replace("%displayname%", playerDN)
                 .replace("%username%", player)
                 .replace("%server%", server)
-                .replace("%message%", dscMsg);
-
-        return message;
+                .replace("%message%", BungeeUtils.removeCC(msg));
     }
 
     public String rmdLayout(String msg, String reporter, String reported, String server) {
-
-        String dscMsg = BungeeUtils.removeCC(msg);
-
-        String message = config.getString("report-message-discord")
+        return config.getString("report-message-discord")
                 .replace("%reporter%", reporter)
                 .replace("%reported%", reported)
                 .replace("%server%", server)
-                .replace("%reason%", dscMsg);
-
-        return message;
+                .replace("%reason%", BungeeUtils.removeCC(msg));
     }
 
     public String rmLayout(String msg, String reporter, String reported, String server) {
-
-        String ccMsg = BungeeUtils.translateCC(msg);
-
-        String rawMsg = config.getString("report-message")
+        return BungeeUtils.translateCC(config.getString("report-message")
                 .replace("%reporter%", reporter)
                 .replace("%reported%", reported)
                 .replace("%server%", server)
-                .replace("%reason%", ccMsg);
-
-        String message = BungeeUtils.translateCC(rawMsg);
-
-        return message;
+                .replace("%reason%", msg));
     }
 
     public String homdLayout(String msg, String player, String server) {
-
-        String dscMsg = BungeeUtils.removeCC(msg);
-
-        String message = config.getString("helpop-message-discord")
+        return config.getString("helpop-message-discord")
                 .replace("%player%", player)
                 .replace("%server%", server)
-                .replace("%message%", dscMsg);
-
-        return message;
+                .replace("%message%", BungeeUtils.removeCC(msg));
     }
 
     public String homLayout(String msg, String player, String server) {
-
-        String ccMsg = BungeeUtils.translateCC(msg);
-
-        String rawMsg = config.getString("helpop-message")
+        return BungeeUtils.translateCC(config.getString("helpop-message")
                 .replace("%player%", player)
                 .replace("%server%", server)
-                .replace("%message%", ccMsg);
-
-        String message = BungeeUtils.translateCC(rawMsg);
-
-        return message;
-    }
-
-    public static Integer configNum() {
-        File spFile;
-        spFile = new File(ProxyServer.getInstance().getPluginsFolder() + "/Spicord/config.toml");
-        Toml cfg = new Toml().read(spFile);
-
-        int num = 0;
-        int i = 0;
-
-        while(i == 0) {
-            if(cfg.getList("bots[" + num + "].addons").contains("staffchat")) {
-                i++;
-            }
-            else {
-                num++;
-            }
-            return num;
-        }
-        return num;
+                .replace("%message%", msg));
     }
 
 }

@@ -10,7 +10,7 @@ public class MessageListenerSpigot extends ListenerAdapter {
 
     private Spigot plugin;
 
-    public MessageListenerSpigot(Spigot pl) {
+    MessageListenerSpigot(Spigot pl) {
         plugin = pl;
     }
 

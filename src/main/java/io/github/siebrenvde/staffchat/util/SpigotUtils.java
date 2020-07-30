@@ -1,12 +1,8 @@
 package io.github.siebrenvde.staffchat.util;
 
-import com.moandjiezana.toml.Toml;
-import io.github.siebrenvde.staffchat.Spigot;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.io.File;
 
 public class SpigotUtils {
 
@@ -49,12 +45,5 @@ public class SpigotUtils {
     }
 
     public static String permissionMessage = ChatColor.RED + "You don't have permission to do this!";
-
-    public static String spicordPrefix() {
-        File file;
-        file = new File(Bukkit.getPluginManager().getPlugin("Spicord").getDataFolder() + "/config.toml");
-        Toml config = new Toml().read(file);
-        return config.getString("bots[" + Spigot.configNum() + "].command_prefix");
-    }
 
 }

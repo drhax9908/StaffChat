@@ -2,3 +2,6 @@
 target
 src/test/
 StaffChat.iml
+build.sh
+output
+build-files

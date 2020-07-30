@@ -6,7 +6,7 @@
 
     <groupId>io.github.siebrenvde</groupId>
     <artifactId>StaffChat</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -21,7 +21,7 @@
         <repository>
             <id>jcenter</id>
             <name>jcenter-bintray</name>
-            <url>http://jcenter.bintray.com</url>
+            <url>https://jcenter.bintray.com</url>
         </repository>
         <repository>
             <id>bungeecord-repo</id>
@@ -40,9 +40,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-        <groupId>net.dv8tion</groupId>
-        <artifactId>JDA</artifactId>
-        <version>3.8.3_464</version>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>3.8.3_464</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>eu.mcdb</groupId>
@@ -64,12 +65,6 @@
             <type>javadoc</type>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.moandjiezana.toml</groupId>
-            <artifactId>toml4j</artifactId>
-            <version>0.7.2</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -84,10 +79,6 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>jar-with-dependencies</shadedClassifierName> <!-- Any name that makes sense -->
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

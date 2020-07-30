@@ -13,21 +13,22 @@ import net.md_5.bungee.api.ChatColor;
 public class Report extends Command {
 
     private Bungee plugin;
+    private BungeeAddon addon;
 
     public Report(Bungee pl) {
         super("report");
         plugin = pl;
+        addon = pl.addon;
     }
 
     public void execute(CommandSender sender,String[] strings) {
 
         if(sender instanceof ProxiedPlayer) {
 
-            BungeeAddon addon = BungeeAddon.getInstance();
             ProxiedPlayer player = (ProxiedPlayer) sender;
 
             if(strings.length < 2) {
-                player.sendMessage(new TextComponent(ChatColor.GRAY + "Usage: " + ChatColor.RED + "/report <player> <reason>"));
+                player.sendMessage(new TextComponent(ChatColor.RED + "Usage: /report <player> <reason>"));
             }
 
             else {
