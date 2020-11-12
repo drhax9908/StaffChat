@@ -1,6 +1,11 @@
 package io.github.siebrenvde.staffchat;
 
-import eu.mcdb.spicord.Spicord;
+import org.spicord.Spicord;
+import org.spicord..addon.AddonManager;
+import eu.mcdb.spicord.bot.DiscordBot;
+import eu.mcdb.spicord.config.SpicordConfiguration;
+import eu.mcdb.spicord.embed.Embed;
+import eu.mcdb.spicord.embed.EmbedSender;
 import io.github.siebrenvde.staffchat.commands.bungee.HelpOp;
 import io.github.siebrenvde.staffchat.commands.bungee.Report;
 import io.github.siebrenvde.staffchat.commands.bungee.StaffChat;
