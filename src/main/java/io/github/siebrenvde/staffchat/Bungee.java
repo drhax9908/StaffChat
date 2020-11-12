@@ -1,7 +1,7 @@
 package io.github.siebrenvde.staffchat;
 
 import org.spicord.Spicord;
-import org.spicord..addon.AddonManager;
+import org.spicord.addon.AddonManager;
 import eu.mcdb.spicord.bot.DiscordBot;
 import eu.mcdb.spicord.config.SpicordConfiguration;
 import eu.mcdb.spicord.embed.Embed;
